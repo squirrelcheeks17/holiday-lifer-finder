@@ -24,11 +24,12 @@ async function loadObservations() {
 
 
         // Keep animals only
-        const animalObservations = allObservations.filter(obs =>
-            obs.taxon &&
-            obs.taxon.ancestor_ids &&
-            obs.taxon.ancestor_ids.includes(1)
-        );
+       const animalObservations = allObservations.filter(obs =>
+    obs.taxon &&
+    obs.taxon.rank === "species" &&
+    obs.taxon.ancestor_ids &&
+    obs.taxon.ancestor_ids.includes(1)
+);
 
 
         // Find first observation of each species
