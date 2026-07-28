@@ -22,35 +22,16 @@ async function loadObservations() {
             page++;
         }
 
-const species = new Set(
-    allObservations
-        .filter(obs => obs.taxon?.rank === "species")
-        .map(obs => obs.taxon.name)
-);
+        const species = new Set(
+            allObservations
+                .map(obs => obs.taxon?.name)
+                .filter(name => name)
+        );
 
-
-// Find first ever observation of each species
-const firstSeen = {};
-
-allObservations
-    .sort((a, b) => new Date(a.observed_on) - new Date(b.observed_on))
-    .forEach(obs => {
-        const name = obs.taxon?.name;
-
-if (obs.taxon?.rank === "species" && name && !firstSeen[name]) {
-    firstSeen[name] = obs;
-}
-    });
-
-const liferCount = Object.keys(firstSeen).length;
         results.innerHTML = `
-    <p>🎉 Loaded all observations!</p>
-    <p>Total observations: ${allObservations.length}</p>
-    <p>Total species: ${species.size}</p>
-    <p>Example taxa:</p>
-    <pre>${[...species].slice(0,50).join("\n")}</pre>
-`;
-<p>Total lifers in your life list: ${liferCount}</p>
+            <p>🎉 Loaded all observations!</p>
+            <p>Total observations: ${allObservations.length}</p>
+            <p>Total species: ${species.size}</p>
         `;
 
     } catch (error) {
