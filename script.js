@@ -22,10 +22,10 @@ async function loadObservations() {
             page++;
         }
 
-   const species = new Set(
+const species = new Set(
     allObservations
-        .map(obs => obs.taxon?.name)
-        .filter(name => name)
+        .filter(obs => obs.taxon?.rank === "species")
+        .map(obs => obs.taxon.name)
 );
 
 
@@ -37,9 +37,9 @@ allObservations
     .forEach(obs => {
         const name = obs.taxon?.name;
 
-        if (name && !firstSeen[name]) {
-            firstSeen[name] = obs;
-        }
+if (obs.taxon?.rank === "species" && name && !firstSeen[name]) {
+    firstSeen[name] = obs;
+}
     });
 
 const liferCount = Object.keys(firstSeen).length;
