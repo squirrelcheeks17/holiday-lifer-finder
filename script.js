@@ -2,7 +2,7 @@ async function loadObservations() {
     const username = document.getElementById("username").value;
     const results = document.getElementById("results");
 
-    results.innerHTML = "Loading all observations...";
+    results.innerHTML = "Loading animal life list...";
 
     try {
         let allObservations = [];
@@ -22,17 +22,52 @@ async function loadObservations() {
             page++;
         }
 
-        const species = new Set(
-            allObservations
-                .map(obs => obs.taxon?.name)
-                .filter(name => name)
+
+        // Keep animals only
+        const animalObservations = allObservations.filter(obs =>
+            obs.taxon &&
+            obs.taxon.ancestor_ids &&
+            obs.taxon.ancestor_ids.includes(1)
         );
 
+
+        // Find first observation of each species
+        const firstSeen = {};
+
+        animalObservations
+            .sort((a, b) => new Date(a.observed_on) - new Date(b.observed_on))
+            .forEach(obs => {
+
+                const taxonID = obs.taxon.id;
+
+                if (!firstSeen[taxonID]) {
+                    firstSeen[taxonID] = obs;
+                }
+
+            });
+
+
+        const lifers = Object.values(firstSeen);
+
+
         results.innerHTML = `
-            <p>🎉 Loaded all observations!</p>
+            <p>🎉 Animal life list created!</p>
             <p>Total observations: ${allObservations.length}</p>
-            <p>Total species: ${species.size}</p>
+            <p>Animal species: ${lifers.length}</p>
+            
+            <p><strong>Your first 10 lifers:</strong></p>
+
+            <ul>
+            ${lifers.slice(0,10).map(obs => `
+                <li>
+                    ⭐ ${obs.taxon.name}
+                    <br>
+                    First seen: ${obs.observed_on}
+                </li>
+            `).join("")}
+            </ul>
         `;
+
 
     } catch (error) {
         results.innerHTML = "Something went wrong.";
