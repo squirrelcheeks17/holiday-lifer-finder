@@ -28,17 +28,24 @@
 <h1>🐿️ Holiday Lifer Finder</h1>
 
 <div class="box">
-    <p>Welcome, <strong>squirrel_cheeks</strong>!</p>
 
     <p>
-        This tool will find which species you discovered
-        for the first time on your holidays.
+        Enter your iNaturalist username:
     </p>
 
-    <p>
-        Version 1: website created successfully 🎉
-    </p>
+    <input id="username" value="squirrel_cheeks">
+
+    <button onclick="loadObservations()">
+        Find my observations
+    </button>
+
+    <div id="results">
+        Results will appear here...
+    </div>
+
 </div>
+
+<script src="script.js"></script>
 
 </body>
 </html>
