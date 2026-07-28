@@ -44,9 +44,12 @@ if (obs.taxon?.rank === "species" && name && !firstSeen[name]) {
 
 const liferCount = Object.keys(firstSeen).length;
         results.innerHTML = `
-            <p>🎉 Loaded all observations!</p>
-            <p>Total observations: ${allObservations.length}</p>
-<p>Total species: ${species.size}</p>
+    <p>🎉 Loaded all observations!</p>
+    <p>Total observations: ${allObservations.length}</p>
+    <p>Total species: ${species.size}</p>
+    <p>Example taxa:</p>
+    <pre>${[...species].slice(0,50).join("\n")}</pre>
+`;
 <p>Total lifers in your life list: ${liferCount}</p>
         `;
 
