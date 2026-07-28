@@ -2,18 +2,36 @@ async function loadObservations() {
     const username = document.getElementById("username").value;
     const results = document.getElementById("results");
 
-    results.innerHTML = "Loading observations...";
+    results.innerHTML = "Loading all observations...";
 
     try {
-        const response = await fetch(
-            `https://api.inaturalist.org/v1/observations?user_id=${username}&per_page=1`
+        let allObservations = [];
+        let page = 1;
+        let totalPages = 1;
+
+        while (page <= totalPages) {
+            const response = await fetch(
+                `https://api.inaturalist.org/v1/observations?user_id=${username}&per_page=200&page=${page}`
+            );
+
+            const data = await response.json();
+
+            allObservations = allObservations.concat(data.results);
+
+            totalPages = Math.ceil(data.total_results / 200);
+            page++;
+        }
+
+        const species = new Set(
+            allObservations
+                .map(obs => obs.taxon?.name)
+                .filter(name => name)
         );
 
-        const data = await response.json();
-
         results.innerHTML = `
-            <p>Found your observations!</p>
-            <p>Total observations: ${data.total_results}</p>
+            <p>🎉 Loaded all observations!</p>
+            <p>Total observations: ${allObservations.length}</p>
+            <p>Total species: ${species.size}</p>
         `;
 
     } catch (error) {
