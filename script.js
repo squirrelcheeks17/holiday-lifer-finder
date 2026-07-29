@@ -60,11 +60,15 @@ async function loadObservations() {
 
             <ul>
             ${lifers.slice(0,10).map(obs => `
-                <li>
-                    ⭐ ${obs.taxon.name}
-                    <br>
-                    First seen: ${obs.observed_on}
-                </li>
+              <li>
+    ⭐ ${obs.taxon.preferred_common_name || obs.taxon.name}
+    <br>
+    <em>${obs.taxon.name}</em>
+    <br>
+    First seen: ${obs.observed_on}
+    <br>
+    Location: ${obs.place_guess || "Unknown"}
+</li>
             `).join("")}
             </ul>
         `;
