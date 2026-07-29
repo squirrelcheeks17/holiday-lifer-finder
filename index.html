@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Holiday Lifer Finder</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,10 +16,28 @@
             font-size: 2.5em;
         }
 
+        h2 {
+            margin-top: 30px;
+        }
+
         .box {
             border: 1px solid #ccc;
             padding: 20px;
             border-radius: 10px;
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        .section {
+            margin-top: 25px;
         }
     </style>
 </head>
@@ -29,18 +48,60 @@
 
 <div class="box">
 
-    <p>
-        Enter your iNaturalist username:
-    </p>
+    <div class="section">
 
-    <input id="username" value="squirrel_cheeks">
+        <h2>Build my animal life list</h2>
 
-    <button onclick="loadObservations()">
-        Find my observations
-    </button>
+        <p>
+            Enter your iNaturalist username:
+        </p>
 
-    <div id="results">
-        Results will appear here...
+        <input id="username" value="squirrel_cheeks">
+
+        <button onclick="loadObservations()">
+            Build my life list
+        </button>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>Find holiday lifers</h2>
+
+        <p>
+            Choose the dates of your holiday:
+        </p>
+
+        <label>
+            From:
+            <input type="date" id="startDate">
+        </label>
+
+        <br>
+
+        <label>
+            To:
+            <input type="date" id="endDate">
+        </label>
+
+        <br><br>
+
+        <button onclick="findHolidayLifers()">
+            Find holiday lifers
+        </button>
+
+    </div>
+
+
+    <div class="section">
+
+        <h2>Results</h2>
+
+        <div id="results">
+            Results will appear here...
+        </div>
+
     </div>
 
 </div>
