@@ -1,3 +1,6 @@
+let allObservations = [];
+let animalLifeList = {};
+
 async function loadObservations() {
     const username = document.getElementById("username").value;
     const results = document.getElementById("results");
@@ -5,7 +8,6 @@ async function loadObservations() {
     results.innerHTML = "Loading animal life list...";
 
     try {
-        let allObservations = [];
         let page = 1;
         let totalPages = 1;
 
@@ -49,29 +51,23 @@ async function loadObservations() {
 
 
         const lifers = Object.values(firstSeen);
+        
+animalLifeList = firstSeen;
 
+results.innerHTML = `
+    <h3>✅ Animal life list built successfully</h3>
 
-        results.innerHTML = `
-            <p>🎉 Animal life list created!</p>
-            <p>Total observations: ${allObservations.length}</p>
-            <p>Animal species: ${lifers.length}</p>
-            
-            <p><strong>Your first 10 lifers:</strong></p>
+    <p><strong>Total observations:</strong> ${allObservations.length}</p>
 
-            <ul>
-            ${lifers.slice(0,10).map(obs => `
-              <li>
-    ⭐ ${obs.taxon.preferred_common_name || obs.taxon.name}
-    <br>
-    <em>${obs.taxon.name}</em>
-    <br>
-    First seen: ${obs.observed_on}
-    <br>
-    Location: ${obs.place_guess || "Unknown"}
-</li>
-            `).join("")}
-            </ul>
-        `;
+    <p><strong>Animal species:</strong> ${lifers.length}</p>
+
+    <p>Your life list is now loaded and ready.</p>
+
+    <p>
+        Choose a holiday date range above and click
+        <strong>Find holiday lifers</strong>.
+    </p>
+`;
 
 
     } catch (error) {
