@@ -84,7 +84,8 @@ results.innerHTML = `
 async function findHolidayLifers() {
 
     const startDate = document.getElementById("startDate").value;
-    const endDate = document.getElementById("endDate").value;
+    const endDate = document.getElementById("endDate").value;\
+        const holidayName = document.getElementById("holidayName").value;
     const results = document.getElementById("results");
 
     if (!startDate || !endDate) {
@@ -104,11 +105,11 @@ async function findHolidayLifers() {
 
 
     results.innerHTML = `
-        <h3>⭐ Holiday lifers found</h3>
+        <h3>⭐ ${holidayName || "Holiday"} lifers found</h3>
 
-        <p>
-            Dates: ${formatDate(startDate)} to ${formatDate(endDate)}
-        </p>
+<p>
+    Dates: ${formatDate(startDate)} to ${formatDate(endDate)}
+</p>
 
         <p>
             New species: ${holidayLifers.length}
