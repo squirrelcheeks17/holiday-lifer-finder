@@ -1,3 +1,7 @@
+function formatDate(date) {
+    const parts = date.split("-");
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+}
 let allObservations = [];
 let animalLifeList = {};
 
@@ -103,7 +107,7 @@ async function findHolidayLifers() {
         <h3>⭐ Holiday lifers found</h3>
 
         <p>
-            Dates: ${startDate} to ${endDate}
+            Dates: ${formatDate(startDate)} to ${formatDate(endDate)}
         </p>
 
         <p>
@@ -117,7 +121,7 @@ async function findHolidayLifers() {
                 <br>
                 <em>${obs.taxon.name}</em>
                 <br>
-                First seen: ${obs.observed_on}
+                First seen: ${formatDate(obs.observed_on)}
                 <br>
                 Location: ${obs.place_guess || "Unknown"}
             </li>
