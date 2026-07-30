@@ -75,3 +75,53 @@ results.innerHTML = `
         console.log(error);
     }
 }
+
+
+async function findHolidayLifers() {
+
+    const startDate = document.getElementById("startDate").value;
+    const endDate = document.getElementById("endDate").value;
+    const results = document.getElementById("results");
+
+    if (!startDate || !endDate) {
+        results.innerHTML = "Please choose both holiday dates.";
+        return;
+    }
+
+    if (Object.keys(animalLifeList).length === 0) {
+        results.innerHTML = "Please build your life list first.";
+        return;
+    }
+
+    const holidayLifers = Object.values(animalLifeList).filter(obs => {
+        return obs.observed_on >= startDate &&
+               obs.observed_on <= endDate;
+    });
+
+
+    results.innerHTML = `
+        <h3>⭐ Holiday lifers found</h3>
+
+        <p>
+            Dates: ${startDate} to ${endDate}
+        </p>
+
+        <p>
+            New species: ${holidayLifers.length}
+        </p>
+
+        <ul>
+        ${holidayLifers.map(obs => `
+            <li>
+                ⭐ ${obs.taxon.preferred_common_name || obs.taxon.name}
+                <br>
+                <em>${obs.taxon.name}</em>
+                <br>
+                First seen: ${obs.observed_on}
+                <br>
+                Location: ${obs.place_guess || "Unknown"}
+            </li>
+        `).join("")}
+        </ul>
+    `;
+}
