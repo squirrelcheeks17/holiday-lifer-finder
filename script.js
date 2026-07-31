@@ -83,9 +83,9 @@ results.innerHTML = `
 
 async function findHolidayLifers() {
 
-    const startDate = document.getElementById("startDate").value;
-    const endDate = document.getElementById("endDate").value;\
-        const holidayName = document.getElementById("holidayName").value;
+  const startDate = document.getElementById("startDate").value;
+const endDate = document.getElementById("endDate").value;
+const holidayName = document.getElementById("holidayName").value;
     const results = document.getElementById("results");
 
     if (!startDate || !endDate) {
